@@ -1,7 +1,12 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import './App.css'
-import {debugData} from "../utils/debugData";
-import {fetchNui} from "../utils/fetchNui";
+import { debugData } from "../utils/debugData";
+import { fetchNui } from "../utils/fetchNui";
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import HeartBrokenIcon from '@mui/icons-material/HeartBroken';
+import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import { Button } from '@mui/material';
 
 // This will set the NUI to visible if we are
 // developing in browser
@@ -16,7 +21,7 @@ interface ReturnClientDataCompProps {
   data: any
 }
 
-const ReturnClientDataComp: React.FC<ReturnClientDataCompProps> = ({data}) => (
+const ReturnClientDataComp: React.FC<ReturnClientDataCompProps> = ({ data }) => (
   <>
     <h5>Returned Data:</h5>
     <pre>
@@ -43,19 +48,44 @@ const App: React.FC = () => {
       setClientData(retData)
     }).catch(e => {
       console.error('Setting mock data due to error', e)
-      setClientData({ x: 500, y: 300, z: 200})
+      setClientData({ x: 500, y: 300, z: 200 })
     })
   }
+
+  const user_status = "Solteiro";
+  const user_name = 'Matheus Vieira'
+  const user_partner = 'Ryan Silva'
 
   return (
     <div className="nui-wrapper">
       <div className='popup-thing'>
-        <div>
-          <h1>This is the NUI Popup!</h1>
-          <p>Exit with the escape key</p>
-          <button onClick={handleGetClientData}>Get Client Data</button>
+          <div className='title-container'>
+            <div>
+            <FavoriteIcon fontSize='large' />
+            <h1>Sistema de Relacionamentos</h1>
+            <FavoriteIcon fontSize='large' />
+            </div>
+            <h3>Olá, {user_name}!</h3>
+          </div>
+          <div className='status-container'>
+            <span>Seu status atual é {user_status}</span>
+            <p>Seu cônjugue atual é {user_partner}</p>
+          </div>
+          <div className='button-container'>
+            <Button variant="contained" endIcon={<FavoriteIcon />}>
+              Namorar
+            </Button>
+            <Button variant="contained" endIcon={<VolunteerActivismIcon />}>
+              Noivar
+            </Button>
+            <Button variant="contained" endIcon={<FavoriteBorderIcon />}>
+              Casar
+            </Button>
+            <Button variant="contained" endIcon={<HeartBrokenIcon />}>
+              Separar
+            </Button>
+          </div>
           {clientData && <ReturnClientDataComp data={clientData} />}
-        </div>
       </div>
     </div>
   );
